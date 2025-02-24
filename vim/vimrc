@@ -1,0 +1,61 @@
+" Plugin declaration
+call plug#begin()
+" https://vimawesome.com/plugin/nerdtree-red
+Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/syntastic'
+call plug#end()
+
+" Basic
+set nobk                        " No vim .swp file
+set mouse=a                     " Mouse integration
+set nocompatible                " Important: Disable vi legacy behavior
+set encoding=utf-8              " UTF-8 encoding
+set autoread                    " Automatically reload external write
+
+" Display
+set ruler                       " Display the current line and column
+syntax enable                   " Syntax color
+set columns=120                 " Display 80 columns
+set number                      " Display the line number vertically
+" Search
+set ignorecase                  " Ignore case while searching
+set smartcase                   " More intelligent search
+set hlsearch                    "Highlight search results
+
+" Indentation
+filetype plugin indent on       " Activate the plugin
+set autoindent                  " Copy the indentation of the current line
+set smartindent                 " Indent smarter when detecting chars like {
+set expandtab                   " Use spaces instead of tabulation
+set shiftwidth=2                " Indent by 2 spaces
+set tabstop=2                   " Number of spaces that a tab count for
+
+" Plugin configuration
+
+" Nerdtree
+" Start NERDTree. If a file is specified, move the cursor to its window.
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * NERDTree | if argc() > 0 || exists("s:std_in") | wincmd p | endif
+
+" Exit Vim if NERDTree is the only window remaining in the only tab.
+autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
+
+" Close the tab if NERDTree is the only window remaining in it.
+autocmd BufEnter * if winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
+
+" If another buffer tries to replace NERDTree, put it in the other window, and bring back NERDTree.
+autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 |
+    \ let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf | endif
+
+" Open the existing NERDTree on each new tab.
+autocmd BufWinEnter * if getcmdwintype() == '' | silent NERDTreeMirror | endif
+
+" Syntastic
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
