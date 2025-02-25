@@ -3,6 +3,7 @@ call plug#begin()
 " https://vimawesome.com/plugin/nerdtree-red
 Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/syntastic'
+Plug 'sainnhe/sonokai'
 call plug#end()
 
 " Basic
@@ -59,3 +60,12 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+
+" Sonokai
+if has("termguicolors")
+  set termguicolors
+endif
+let g:sonokai_style = 'shusia'
+let g:sonokai_better_performance = 1
+let g:sonokai_transparent_background = 1
+colorscheme sonokai
