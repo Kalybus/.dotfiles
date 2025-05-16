@@ -5,7 +5,7 @@
     // Choose the order of the modules
     "modules-left": ["hyprland/workspaces", "custom/music"],
     "modules-center": ["hyprland/window"],
-    "modules-right": ["tray", "pulseaudio", "backlight", "battery", "custom/bluetooth", "clock", "custom/lock", "custom/power"],
+    "modules-right": ["tray", "keyboard-state", "pulseaudio", "backlight", "battery", "custom/bluetooth", "clock", "custom/lock", "custom/power"],
     "hyprland/workspaces": {
          "disable-scroll": true,
          "sort-by-name": true,
@@ -35,6 +35,15 @@
         "exec": "playerctl metadata --format='{{ title }}'",
         "on-click": "playerctl play-pause",
         "max-length": 50
+    },
+    "keyboard-state": {
+  	  "numlock": true,
+      "capslock": true,
+      "format": "{name} {icon}",
+      "format-icons": {
+  	    "locked": "",
+  	    "unlocked": ""
+      }
     },
     "clock": {
         "timezone": "Europe/Paris",

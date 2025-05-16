@@ -44,6 +44,7 @@
 
 #custom-music,
 #tray,
+#keyboard-state,
 #backlight,
 #clock,
 #battery,
@@ -88,8 +89,15 @@
 
 #pulseaudio {
   color: @maroon;
+}
+
+#keyboard-state {
   border-radius: 1rem 0px 0px 1rem;
   margin-left: 1rem;
+}
+
+#keyboard-state label.capslock {
+  margin-right: 1rem;
 }
 
 #custom-music {
