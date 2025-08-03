@@ -2,7 +2,7 @@
 call plug#begin()
 " https://vimawesome.com/plugin/nerdtree-red
 Plug 'scrooloose/nerdtree'
-Plug 'scrooloose/syntastic'
+"Plug 'scrooloose/syntastic'
 Plug 'sainnhe/sonokai'
 call plug#end()
 
@@ -32,8 +32,10 @@ set shiftwidth=2                " Indent by 2 spaces
 set tabstop=2                   " Number of spaces that a tab count for
 
 " Plugin configuration
-
-" Nerdtree
+"
+""""""""""""""""""""""""
+" Nerdtree configuration
+""""""""""""""""""""""""
 " Start NERDTree. If a file is specified, move the cursor to its window.
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * NERDTree | if argc() > 0 || exists("s:std_in") | wincmd p | endif
@@ -51,21 +53,29 @@ autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_
 " Open the existing NERDTree on each new tab.
 autocmd BufWinEnter * if getcmdwintype() == '' | silent NERDTreeMirror | endif
 
-" Syntastic
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+"""""""""""""""""""""""""
+" Syntastic configuration
+"""""""""""""""""""""""""
+"set statusline+=%#warningmsg#
+"set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%*
 
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+"let g:syntastic_always_populate_loc_list = 1
+"let g:syntastic_auto_loc_list = 1
+"let g:syntastic_check_on_open = 1
+"let g:syntastic_check_on_wq = 0
 
-" Sonokai
-if has("termguicolors")
+"""""""""""""""""""""""
+" Sonokai configuration
+" Source: https://github.com/sainnhe/sonokai/blob/master/doc/sonokai.txt
+"""""""""""""""""""""""
+if has('termguicolors')
   set termguicolors
 endif
-let g:sonokai_style = 'shusia'
+
+" The configuration options should be placed before `colorscheme sonokai`.
+let g:sonokai_style = 'espresso'
 let g:sonokai_better_performance = 1
 let g:sonokai_transparent_background = 1
+
 colorscheme sonokai
