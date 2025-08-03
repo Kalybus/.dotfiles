@@ -1,0 +1,112 @@
+# ~/.bashrc
+# by Jérôme Coste
+#################
+# Text editor configuration
+export VISUAL="vim"
+export EDITOR="vim"
+
+# If not running interactively, don't parse after this line
+[[ $- != *i* ]] && return
+
+################
+# Useful aliases
+################
+alias ls='ls --color=auto'
+alias ll='ls -alh'
+alias l='ll'
+
+alias e='vim'
+alias diff='diff --color=auto'
+alias grep='grep --color=auto'
+alias ip='ip -color=auto'
+
+alias pacorph='pacman -Qtdq'
+alias paccleanorph='pacman -Qtdq | sudo pacman -Rns -'
+alias paccleancache='sudo pacman -Scc'
+
+
+# Prevent errors on targets using kitty
+# See https://sw.kovidgoyal.net/kitty/faq.html#i-get-errors-about-the-terminal-being-unknown-or-opening-the-terminal-failing-when-sshing-into-a-different-computer
+alias ssh='kitty +kitten ssh'
+
+alias brightness='xrandr --output eDP1 --brightness'
+
+cd() { builtin cd "$@" && ls; }
+
+#######################
+# Bash autocompletion #
+#######################
+
+bind 'set show-all-if-ambiguous on'
+bind 'TAB:menu-complete'
+
+#######################################
+# Syntax coloration in various programs
+#######################################
+export LESS=-R
+export LESS_TERMCAP_mb=$'\E[1;31m'     # begin blink
+export LESS_TERMCAP_md=$'\E[1;36m'     # begin bold
+export LESS_TERMCAP_me=$'\E[0m'        # reset bold/blink
+export LESS_TERMCAP_so=$'\E[01;44;33m' # begin reverse video
+export LESS_TERMCAP_se=$'\E[0m'        # reset reverse video
+export LESS_TERMCAP_us=$'\E[1;32m'     # begin underline
+export LESS_TERMCAP_ue=$'\E[0m'        # reset underline
+
+man() {
+    LESS_TERMCAP_md=$'\e[01;31m' \
+    LESS_TERMCAP_me=$'\e[0m' \
+    LESS_TERMCAP_so=$'\e[01;44;33m' \
+    LESS_TERMCAP_se=$'\e[0m' \
+    LESS_TERMCAP_us=$'\e[01;32m' \
+    LESS_TERMCAP_ue=$'\e[0m' \
+    command man "$@"
+}
+
+###################
+## PS1 declaration
+###################
+
+# Default to yes
+COLOR=${COLOR:="yes"}
+
+if [ "$USER" = "root" ]
+then
+	sign="#"
+else
+	sign="$"
+fi
+
+if [ "$COLOR" = "yes" ]
+then
+	PS1='\[\033[01;33m\]\u@\h\[\033[00m\] \[\033[01;32m\]{ \w }\[\033[00m\] \[\033[01;31m\]'$sign'\[\033[00m\] '
+
+	alias ls='ls --color=auto'
+else
+	PS1='⤷ \u@\h { \w } $ '
+fi
+
+####################
+# fzf configuration
+####################
+. /usr/share/fzf/key-bindings.bash
+. /usr/share/fzf/completion.bash
+
+# AUR Compilation configuration
+export PATH="/usr/lib/ccache/bin/:$PATH"
+
+################################
+# automatically enable ssh-agent 
+################################
+if ! pgrep -u "$USER" ssh-agent > /dev/null; then
+    ssh-agent -t 1h > "$XDG_RUNTIME_DIR/ssh-agent.env"
+fi
+if [[ ! "$SSH_AUTH_SOCK" ]]; then
+    source "$XDG_RUNTIME_DIR/ssh-agent.env" >/dev/null
+fi
+
+complete -C /usr/bin/mcli mcli
+
+
+# BEGIN_KITTY_SHELL_INTEGRATION
+if test -n "$KITTY_INSTALLATION_DIR" -a -e "$KITTY_INSTALLATION_DIR/shell-integration/bash/kitty.bash"; then source "$KITTY_INSTALLATION_DIR/shell-integration/bash/kitty.bash"; fi
+# END_KITTY_SHELL_INTEGRATION
