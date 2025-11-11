@@ -1,94 +1,131 @@
 {
-    "layer": "top", // Waybar at top layer
-    "position": "top", // Waybar position (top|bottom|left|right)
-    // "width": 1280, // Waybar width
-    // Choose the order of the modules
-    "modules-left": ["hyprland/workspaces", "custom/music"],
-    "modules-center": ["hyprland/window"],
-    "modules-right": ["tray", "keyboard-state", "pulseaudio", "backlight", "battery", "custom/bluetooth", "clock", "custom/lock", "custom/power"],
-    "hyprland/workspaces": {
-         "disable-scroll": true,
-         "sort-by-name": true,
-         "format": " {icon} ",
-         "format-icons": {
-             "default": ""
-         }
+  "layer": "top",
+  "position": "top",
+  "margin-bottom": -10,
+  "spacing" : 0,
+  "modules-left": [
+    "hyprland/workspaces",
+    "cpu",
+    "custom/music"
+  ],
+
+  "modules-center": ["hyprland/window"],
+
+  "modules-right": [
+    "clock",
+    "bluetooth",
+    "network",
+    "pulseaudio", 
+    "backlight",
+    "battery",
+    "custom/power"
+  ],
+
+  "hyprland/workspaces": {
+    "format": "{name}: {icon}",
+    "format-icons": {
+      "active": "",
+      "default": ""
+    }
+  },
+
+   "hyprland/window": {
+     "format": "{}",
+     "icon": false,
+     "separate-outputs": true
     },
-    "hyprland/window": {
-        "format": "{}",
-        "rewrite": {
-            "(.*) — Mozilla Firefox": "🦊 $1",
-            "Mozilla Firefox": "🦊 Nouvel onglet",
-            "(.*) - bash": "> [$1]"
+
+  "bluetooth": {
+    "format": "󰂲",
+    "format-on": "{icon}",
+    "format-off": "{icon}", 
+    "format-connected":"{icon}",
+    "format-icons":{
+        "on":"󰂯",
+        "off": "󰂲",
+        "connected": "󰂱"
         },
-        "separate-outputs": true
+    "on-click": "blueberry",
+    "tooltip-format-connected":"{device_enumerate}"
+  },
+
+  "custom/music": {
+    "format": "  {}",
+    "escape": true,
+    "interval": 5,
+    "tooltip": false,
+    "exec": "playerctl metadata --format='{{ artist }} - {{ title }}'",
+    "on-click": "playerctl play-pause",
+    "max-length": 50
+  },
+
+  "clock": {
+    "timezone": "Europe/Paris",
+    "tooltip": false,
+    "format": " {:%d/%m @ %H:%M:%S}",
+    "interval": 1
+  },
+
+  "network": {
+    "format-wifi": "󰤢",
+    "format-ethernet": "󰈀 ",
+    "format-disconnected": "󰤠 ",
+    "interval": 5,
+    "tooltip": false,
+    "on-click": "nm-connection-editor"
+
+ },
+
+  "cpu": {
+    "interval": 1,
+    "format": "  {icon0}{icon1}{icon2}{icon3} {usage:>2}%",
+    "format-icons": ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"],
+    "on-click": "ghostty -e htop"
+  },
+
+  "memory": {
+    "interval": 30,
+    "format": "  {used:0.1f}G/{total:0.1f}G",
+    "tooltip-format": "Memory"
+  },
+
+  "backlight": {
+        "format": "{icon}  {percent}%",
+        "format-icons": ["","󰃜", "󰃛", "󰃞","󰃝","󰃟","󰃠"],
+        "tooltip": false
+  },
+  
+  "pulseaudio": {
+    "format": "{icon}  {volume}%",
+    "format-muted": "",
+    "format-icons": {
+      "default": ["", "", " "]
     },
-    "tray": {
-        "icon-size": 21,
-        "spacing": 10
-    },
-    "custom/music": {
-        "format": "  {}",
-        "escape": true,
-        "interval": 5,
-        "tooltip": false,
-        "exec": "playerctl metadata --format='{{ title }}'",
-        "on-click": "playerctl play-pause",
-        "max-length": 50
-    },
-    "keyboard-state": {
-  	  "numlock": true,
-      "capslock": true,
-      "format": "{name} {icon}",
-      "format-icons": {
-  	    "locked": "",
-  	    "unlocked": ""
-      }
-    },
-    "clock": {
-        "timezone": "Europe/Paris",
-        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-        "format-alt": " {:%d/%m/%Y}",
-        "format": "{:%H:%M}"
-    },
-    "backlight": {
-        "device": "intel_backlight",
-        "format": "<span font='14'>{icon}</span>",
-        "format-icons": ["", "", "", "", "", "", "", "", ""]
-    },
-    "battery": {
+    "on-click": "pavucontrol"
+  },
+
+  "battery": {
+        "interval":2,
         "states": {
+            // "good": 95,
             "warning": 30,
             "critical": 15
         },
-        "format": "<span font='18'>{icon}</span>",
-        "format-charging": "<span font='18'>󰢝</span>",
-        "format-plugged": "<span font='18'>󰂅</span>",
-        "format-alt": "<span font='18'>{icon}</span>",
-        "format-icons": ["","", "", "", ""]
-    },
-    "pulseaudio": {
-        // "scroll-step": 1, // %, can be a float
-        "format": "{icon} {volume}%",
-        "format-muted": "<span font='18'></span>",
-        "format-icons": {
-            "default": ["<span font='10' rise='0'></span>", "<span font='14' rise='-1600'></span>", "<span font='16' rise='-2600'></span>"]
-        },
-        "on-click": "pavucontrol"
-    },
-    "custom/lock": {
-        "tooltip": false,
-        "on-click": "sh -c '(sleep 0.5s; swaylock --grace 0)' & disown",
-        "format": ""
-    },
-    "custom/bluetooth": { 
-        "tooltip": false,
-        "on-click": "blueberry &",
-        "format": "󰂯"
-    },
-    "custom/power": { 
-        "tooltip": false,
-        "on-click": "wlogout &",
-        "format": ""
-    }
+        "format": "{icon}  {capacity}%",
+        "format-full": "{icon}  {capacity}%",
+        "format-charging": " {capacity}%",
+        "format-plugged": " {capacity}%",
+        "format-alt": "{icon} {time}",
+        // "format-good": "", // An empty format will hide the module
+        // "format-full": "",
+        "format-icons": ["", "", "", "", ""]
+  },
+  
+  "custom/power": {
+    "tooltip": false,
+    "on-click": "wlogout &",
+    "format": ""
+  }
+
 }
+
