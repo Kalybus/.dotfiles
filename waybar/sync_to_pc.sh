@@ -6,6 +6,9 @@ mkdir -p ~/.config/waybar
 cp ./style.css ~/.config/waybar/style.css
 cp ./config.jsonc ~/.config/waybar/config.jsonc
 
-pkill waybar && hyprctl dispatch exec waybar
+pkill waybar
+hyprctl dispatch exec waybar
+
+# Debug
 #pkill waybar
 #env GTK_DEBUG=interactive waybar
