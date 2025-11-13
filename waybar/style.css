@@ -116,9 +116,23 @@
   border-bottom-right-radius: 6px;
 }
 
+#tray > widget .popup {
+  background-color: @background-primary;
+  color: white;
+  border-radius: 6px;
+}
+
+#tray > widget .popup menuitem {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+#tray > widget .popup menuitem:hover {
+  color: @text-accent;
+}
+
 #bluetooth:hover,
 #pulseaudio:hover,
-#network:hover,
 #custom-power:hover {
   background-color: @background-hover;
 }
@@ -129,10 +143,6 @@
   margin-right: 7px;
   border-radius: 6px;
   color: #5982c5;
-}
-
-#network.disconnected {
-  color: #e78284;
 }
 
 #custom-power {

@@ -13,8 +13,8 @@
 
   "modules-right": [
     "clock",
+    "tray",
     "bluetooth",
-    "network",
     "pulseaudio", 
     "backlight",
     "battery",
@@ -59,22 +59,15 @@
     "max-length": 50
   },
 
+  "tray": {
+  },
+
   "clock": {
     "timezone": "Europe/Paris",
     "tooltip": false,
     "format": " {:%d/%m @ %H:%M:%S}",
     "interval": 1
   },
-
-  "network": {
-    "format-wifi": "󰤢",
-    "format-ethernet": "󰈀 ",
-    "format-disconnected": "󰤠 ",
-    "interval": 5,
-    "tooltip": false,
-    "on-click": "nm-connection-editor"
-
- },
 
   "cpu": {
     "interval": 1,
