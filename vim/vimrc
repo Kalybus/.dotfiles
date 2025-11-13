@@ -16,7 +16,7 @@ set autoread                    " Automatically reload external write
 " Display
 set ruler                       " Display the current line and column
 syntax enable                   " Syntax color
-set columns=120                 " Display 80 columns
+set columns=180                 " Display 80 columns
 set number                      " Display the line number vertically
 " Search
 set ignorecase                  " Ignore case while searching
