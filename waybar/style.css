@@ -116,6 +116,14 @@
   border-bottom-right-radius: 6px;
 }
 
+#tray {
+  padding: 0;
+}
+
+#tray > widget > image {
+  padding: 0.3rem 0.7rem;
+}
+
 #tray > widget .popup {
   background-color: @background-primary;
   color: white;

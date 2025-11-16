@@ -1,10 +1,15 @@
 " Plugin declaration
 call plug#begin()
 " https://vimawesome.com/plugin/nerdtree-red
+Plug 'vim-scripts/AutoComplPop'
 Plug 'scrooloose/nerdtree'
-"Plug 'scrooloose/syntastic'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'sainnhe/sonokai'
 call plug#end()
+
+"Global
+let mapleader = " "
 
 " Basic
 set nobk                        " No vim .swp file
@@ -16,7 +21,7 @@ set autoread                    " Automatically reload external write
 " Display
 set ruler                       " Display the current line and column
 syntax enable                   " Syntax color
-set columns=180                 " Display 80 columns
+"set columns=120                 " Display 80 columns
 set number                      " Display the line number vertically
 " Search
 set ignorecase                  " Ignore case while searching
@@ -31,6 +36,9 @@ set expandtab                   " Use spaces instead of tabulation
 set shiftwidth=2                " Indent by 2 spaces
 set tabstop=2                   " Number of spaces that a tab count for
 
+" Autocomplete
+set wildmode=longest,list
+
 " Plugin configuration
 "
 """"""""""""""""""""""""
@@ -38,7 +46,7 @@ set tabstop=2                   " Number of spaces that a tab count for
 """"""""""""""""""""""""
 " Start NERDTree. If a file is specified, move the cursor to its window.
 autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * NERDTree | if argc() > 0 || exists("s:std_in") | wincmd p | endif
+"autocmd VimEnter * NERDTree | if argc() > 0 || exists("s:std_in") | wincmd p | endif
 
 " Exit Vim if NERDTree is the only window remaining in the only tab.
 autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
@@ -51,19 +59,20 @@ autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_
     \ let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf | endif
 
 " Open the existing NERDTree on each new tab.
-autocmd BufWinEnter * if getcmdwintype() == '' | silent NERDTreeMirror | endif
+"autocmd BufWinEnter * if getcmdwintype() == '' | silent NERDTreeMirror | endif
 
-"""""""""""""""""""""""""
-" Syntastic configuration
-"""""""""""""""""""""""""
-"set statusline+=%#warningmsg#
-"set statusline+=%{SyntasticStatuslineFlag()}
-"set statusline+=%*
+nnoremap <leader><Tab> :NERDTreeToggle<cr>
 
-"let g:syntastic_always_populate_loc_list = 1
-"let g:syntastic_auto_loc_list = 1
-"let g:syntastic_check_on_open = 1
-"let g:syntastic_check_on_wq = 0
+""""""""""""""""""""""""
+" Airline (+theme) configuration
+" Sources: 
+"  - https://github.com/vim-airline/vim-airline
+"  - https://github.com/vim-airline/vim-airline-themes
+""""""""""""""""""""""""
+
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_theme='powerlineish'
+let g:airline_powerline_fonts = 1
 
 """""""""""""""""""""""
 " Sonokai configuration
