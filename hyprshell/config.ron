@@ -59,9 +59,8 @@
         switch: (
             modifier: "alt",
             filter_by: [
-                current_monitor,
             ],
-            switch_workspaces: false,
+            switch_workspaces: true,
         ),
     ),
 )
