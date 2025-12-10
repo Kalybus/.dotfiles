@@ -1,6 +1,6 @@
 #!/bin/bash
 
-mkdir -p .config/hypr
+mkdir -p ~/.config/hypr
 
 # Copy main config
 cp hyprland.conf  ~/.config/hypr/hyprland.conf

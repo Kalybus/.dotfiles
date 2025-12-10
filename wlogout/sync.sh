@@ -1,7 +1,7 @@
 #!/bin/bash
 
-mkdir -p $XDG_CONFIG_HOME/wlogout
+mkdir -p ~/.config/wlogout
 
 # Copy main config
-cp layout $XDG_CONFIG_HOME/wlogout/layout
-cp style.css $XDG_CONFIG_HOME/wlogout/style.css
+cp layout ~/.config/wlogout/layout
+cp style.css ~/.config/wlogout/style.css
