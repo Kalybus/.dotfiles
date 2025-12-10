@@ -1,7 +1,4 @@
-# Personal dotfils
+# Personal dotfiles
 
-## Available configurations
-
-[vim](vim/README.md)
-[hyprland](hyprland/README.md)
-[waybar](waybar/README.md)
+This repository holds my personal dotfiles, specifically designed for Archlinux + hyprland.
+Use at your own risks.

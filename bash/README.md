@@ -1,3 +1,0 @@
-# Bashrc config
-
-
