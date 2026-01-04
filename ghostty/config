@@ -75,5 +75,5 @@ palette=15=#ffffff
 # SSH XTerm integration
 # =====================
 # Source: https://ghostty.org/docs/help/terminfo#ssh 
-shell-integration-features = ssh-terminfo,ssh-env
+shell-integration-features = ssh-env
 
