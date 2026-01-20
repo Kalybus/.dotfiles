@@ -5,6 +5,12 @@
 export VISUAL="vim"
 export EDITOR="vim"
 
+##################
+# Path expansion #
+##################
+
+export PATH="/home/kalybus/bin:$PATH"
+
 # If not running interactively, don't parse after this line
 [[ $- != *i* ]] && return
 
@@ -94,7 +100,7 @@ fi
 export PATH="/usr/lib/ccache/bin/:$PATH"
 
 ################################
-# Automatically enable ssh-agent 
+# Automatically enable ssh-agent
 ################################
 #if ! pgrep -u "$USER" ssh-agent > /dev/null; then
 #    ssh-agent -t 1h > "$XDG_RUNTIME_DIR/ssh-agent.env"
